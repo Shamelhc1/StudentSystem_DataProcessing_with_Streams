@@ -1,3 +1,5 @@
+package com.shamel.model;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -117,7 +119,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "com.shamel.model.Student{" +
                 "studentId=" + studentId +
                 ", countryCode='" + countryCode + '\'' +
                 ", yearEnrolled=" + yearEnrolled +
