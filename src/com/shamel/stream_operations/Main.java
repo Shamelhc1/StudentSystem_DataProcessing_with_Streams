@@ -1,19 +1,22 @@
-package com.shamel.model;
+package com.shamel.stream_operations;
+
+import com.shamel.model.Course;
+import com.shamel.model.Student;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        PrintStream fileOut = new PrintStream(new FileOutputStream("student_operations_output.txt"));
-        System.setOut(fileOut);
+//        PrintStream fileOut = new PrintStream(new FileOutputStream("student_operations_output.txt"));
+//        System.setOut(fileOut);
 
 
         Course pymc = new Course("PYMC", "Python Master class");
@@ -99,7 +102,24 @@ public class Main {
         System.out.println(Arrays.toString(CanadianStudents));
 
 
-        fileOut.close();
+        var longTimeLearners = Arrays.stream(studentsArray)
+                .filter(s -> (s.getAge() - s.getAgeEnrolled() >= 7) &&
+                        (s.getMonthsSinceActive() < 12))
+                .filter(s-> !s.hasProgrammingExperience())
+                .limit(5)
+                .collect(Collectors.toList());
+
+        Collections.shuffle(longTimeLearners);
+
+        System.out.println(longTimeLearners);
+
+
+
+
+
+
+
+//        fileOut.close();
 
 
     }
