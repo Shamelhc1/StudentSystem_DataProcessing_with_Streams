@@ -4,11 +4,13 @@ UML Class chart: https://github.com/Shamelhc1/StudentSystem_DataProcessing_with_
 
 This project genetates a data set of Random Student, with Course and an Engagement tracker class:
 - The data set is mainly generated using Streams.generate() 
-- Based on the generated data, I used intermediate and terminal operations to query and extract certain useful data.
+
+Based on the generated data, I used intermediate and terminal operations to query and extract certain useful data.
 - what percentage of male/ female students?
 - how many students are in the age range of 30 to 60?
 - what are the age statistics of the student data, i.e. average, min, max.
 - Are there students that are still active and have been enrolled for more than 7 years
+- The queries and filtering operations are then collected to a List and Array containers.
 
 
 
