@@ -1,5 +1,8 @@
 package com.shamel.model;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class Main {
@@ -56,6 +59,40 @@ public class Main {
                                     student.getMonthsSinceActive() < 12);
         System.out.println("\nAre there students that are still active and have been enrolled for more than 7 years?\n"
                 +unicornStudent);
+
+
+        // creating a student Array and filling it with random values:
+        Student[] studentsArray = new Student[1000];
+        Arrays.setAll(studentsArray, index -> Student.getRandomStudent(pymc, jmc));
+
+        // filter long term (7 more years students)
+        // who have no programming experience and putting 5 samples
+        // into an unmodifiable List
+
+        // the list will be sorted by the student ID:
+
+        List<Student> longTermStudents =  Arrays.stream(studentsArray)
+                .filter(s -> (s.getAge() - s.getAgeEnrolled() >= 7) &&
+                        (s.getMonthsSinceActive() < 12))
+                .filter(s -> !s.hasProgrammingExperience())
+                .limit(5)
+                .sorted(Comparator.comparing(Student::getStudentId))
+                .toList();
+
+        System.out.println("List of long term Students who enrolled with no programming experience: ");
+        longTermStudents.forEach(System.out::println);
+
+        // outputting the first 10 students from the Canada into an Array:
+        Student[] CanadianStudents = Arrays.stream(studentsArray)
+                .filter(student -> student.getCountryCode().equals("CN"))
+                .sorted(Comparator.comparing(Student::getYearEnrolled))
+                .limit(10)
+                .toArray(Student[]::new);
+        System.out.println("\nArray of the first 10 Canadian students who enrolled: \n");
+        System.out.println(Arrays.toString(CanadianStudents));
+
+
+
 
     }
 
