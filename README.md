@@ -16,26 +16,41 @@ This project genetates a data set of Random Student, with Course and an Engageme
 Classes:
 
 Student
+
 └── id: int
+
 └── CountryCode: String
+
 └── enagementMap: Map<String, courseEngagement>
+
 └── yearEnrolled: int 
+
 └── ageEnrolled: int 
+
 └── gender: string
 ...
 
 
 Course
+
 └── name: String
+
 └──title: String 
+
 └──lectureCount: int
 
 CourseEngagement
+
 └──course: Course
+
 └──lastActivityDate: LocalDate 
+
 └──enrollmentDate: LocalDate
+
 └──lastLecture: int
+
 └──engagementType: Strong
+
 
 
 
