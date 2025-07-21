@@ -54,7 +54,6 @@ public class CourseEngagement {
         LocalDate now = LocalDate.now();
         var months = Period.between(lastActivityDate, now).toTotalMonths();
         return (int) months;
-
     }
 
     void watchLecture(int lectureNumber, LocalDate currentDate){

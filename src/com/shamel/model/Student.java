@@ -84,23 +84,8 @@ public class Student {
         return ageEnrolled +  getYearsSinceEnrolled();
     }
 
-    public int getMonthsSinceActive(String courseCode){
 
-        CourseEngagement info = engagementMap.get(courseCode);
-        return  info == null ? 0 : info.getMonthsSinceActive();
 
-    }
-    public int getMonthsSinceActive(){
-
-        int inactiveMonth = (LocalDate.now().getYear() - 2024) * 12;
-        for(String key : engagementMap.keySet()){
-
-            inactiveMonth = Math.min(inactiveMonth, getMonthsSinceActive(key));
-
-        }
-        return inactiveMonth;
-
-    }
 
     public double getPercentComplete(String courseCode){
 
@@ -109,13 +94,7 @@ public class Student {
 
     }
 
-    public void watchLecture(String courseCode, int lectureNumber, int month, int year){
 
-        var activity = engagementMap.get(courseCode);
-        if(activity != null){
-            activity.watchLecture(lectureNumber, LocalDate.of(year, month, 1));
-        }
-    }
 
     @Override
     public String toString() {
@@ -134,14 +113,43 @@ public class Student {
         return data[random.nextInt(data.length)];
     }
 
+
+
+    public void watchLecture(String courseCode, int lectureNumber, int month, int year){
+
+        var activity = engagementMap.get(courseCode);
+        if(activity != null){
+            activity.watchLecture(lectureNumber, LocalDate.of(year, month, 1));
+        }
+    }
+
+    public int getMonthsSinceActive(String courseCode){
+
+        CourseEngagement info = engagementMap.get(courseCode);
+        return  info == null ? 0 : info.getMonthsSinceActive();
+
+    }
+
+    public int getMonthsSinceActive(){
+
+        int inactiveMonth = (LocalDate.now().getYear() - 2014) * 12;
+
+        for(String key : engagementMap.keySet()){
+            inactiveMonth = Math.min(inactiveMonth, getMonthsSinceActive(key));
+        }
+
+        return inactiveMonth;
+    }
+
     public static Student getRandomStudent(Course... courses){
 
         int maxYear = LocalDate.now().getYear();
 
+        // constructing the randomized student:
         Student student = new Student(
                 getRandomVal("AU", "CA", "CN", "GB", "IN", "UA", "US"),
                 random.nextInt(2015, maxYear),
-                random.nextInt(19,90),
+                random.nextInt(19,70),
                 getRandomVal("M", "F", "U"),
                 random.nextBoolean(),
                 courses
@@ -149,19 +157,13 @@ public class Student {
 
         for(Course c :  courses){
             int lecture = random.nextInt(1, c.lectureCount());
-            int year = random.nextInt(student.getYearEnrolled(), maxYear);
+//            int year = random.nextInt(student.getYearEnrolled(), maxYear);
+            int year = random.nextInt(student.getYearEnrolled(), maxYear);;
             int month = random.nextInt(1,13);
-            if(year == (maxYear -1)){
-                if(month > LocalDate.now().getMonthValue()){
-                    month = LocalDate.now().getMonthValue();
-                }
-            }
+
             student.watchLecture(c.courseCode(), lecture, month, year);
         }
-
-
         return student;
-
     }
 
 
