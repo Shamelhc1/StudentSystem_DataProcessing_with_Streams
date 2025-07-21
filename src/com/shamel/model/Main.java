@@ -1,5 +1,8 @@
 package com.shamel.model;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -7,7 +10,11 @@ import java.util.stream.Stream;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+
+        PrintStream fileOut = new PrintStream(new FileOutputStream("student_operations_output.txt"));
+        System.setOut(fileOut);
+
 
         Course pymc = new Course("PYMC", "Python Master class");
         Course jmc = new Course("JMC", "Java Master class");
@@ -92,6 +99,7 @@ public class Main {
         System.out.println(Arrays.toString(CanadianStudents));
 
 
+        fileOut.close();
 
 
     }
