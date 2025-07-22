@@ -93,7 +93,8 @@ public class Main {
         longTermStudents.forEach(System.out::println);
 
         // outputting the first 10 students from the Canada into an Array:
-        Student[] CanadianStudents = Arrays.stream(studentsArray)
+
+        var CanadianStudents = Arrays.stream(studentsArray)
                 .filter(student -> student.getCountryCode().equals("CN"))
                 .sorted(Comparator.comparing(Student::getYearEnrolled))
                 .limit(10)

@@ -3,10 +3,7 @@ package com.shamel.stream_operations;
 import com.shamel.model.Course;
 import com.shamel.model.Student;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,7 +17,7 @@ public class MainCollect {
         Course jmc = new Course("JMC", "Java Master class");
 
 
-        // Generating 1K random students and outputting the result into a list
+        // Generating 1K random students and outputting the result into a concrete list
         // container:
 
         List<Student> students =
@@ -28,7 +25,14 @@ public class MainCollect {
                         .limit(1000)
                         .toList();
 
-        // let's extract the australian students:
+        Student[] studentsArray =
+                Stream.generate(()-> Student.getRandomStudent(jmc,pymc))
+                        .limit(1000)
+                        .toArray(size -> new Student[size]);
+
+
+
+        // let's extract the Australian students:
 
         Set<Student> australianStudents = students.stream()
                 .filter(s -> s.getCountryCode().equals("AU"))
@@ -71,11 +75,20 @@ public class MainCollect {
                 " Student Age: " + s.getAge()));
         System.out.println();
 
+        // let's get a Map of how many students come from each country:
+        Map<String, Long> studentsPerCountry = students.stream()
+                .collect(Collectors.groupingBy(Student::getCountryCode,
+                        Collectors.counting()));
+        System.out.println("A map how many students from each country");
+        studentsPerCountry.forEach((k,v) -> System.out.println(k +" "+ v));
 
+        // we can also get the Map of the lists of students per country:
 
+        Map<String, List<Student>> studentsPerCountryList = students.stream()
+                .collect(Collectors.groupingBy(Student::getCountryCode));
 
-
-
+//        System.out.println("-".repeat(20));
+//        studentsPerCountryList.get("CN").forEach(System.out::println);
 
     }
 
